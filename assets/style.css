@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'Futura';
+    src: url('futur.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EireneSans';
+    src: url('EireneSans-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'IconaSans';
+    src: url('IconaSans-Thin.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bree';
+    src: url('BreeSerif-Regular.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Bree';
+    font-size: 1em;
+    color: #3d4039;
+    background-color: #dbd7cc;
+    font-size: 0.8em;
+}
+
+.header{
+    font-family: 'Bree';
+    text-align: left;
+    background-color: #3d4039;
+    color: #dbd7cc;
+}
+
+.titulo-principal {
+    font-size: 1.4em;
+    text-align: left;
+    color: #dbd7cc;
+    font-family: 'Bree';
+}	
+
+.titulo-principal span{
+    color: #cee1b6;
+}
+
+
+.logo {
+    width: 80px;
+    height: 49px;
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
