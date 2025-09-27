@@ -1,72 +1,278 @@
 <!DOCTYPE html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ruan Massini - Portifólio</title>
-        <link rel="icon" href="assets/favicon.ico">
-        <link rel="stylesheet" href="assets/style.css">
-        <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
-    </head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem Regressiva - Vôlei</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <body style="background-color: #3d4039;">
-        <div class="grid header mx-1 my-1 pl-3 pb-3 pr-3 pt-0">
-            <div class="row p-0">
-                <div class="col-auto p-0">
-                    <img src="assets/logo.png" alt="Logo" class="logo">
-                </div>
-                <div class="col-auto p-2">
-                    <h1 class="titulo-principal">
-                        <span class="green">R</span>uan<br>
-                        <span class="green">M</span>assini</h1>
-                </div>
-            </div>
-            <div class="content introducao">
-                <div class="row">
-                    <div class="col-auto">
-                        <p>Olá, bem vindo(a) ao meu portifólio.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-auto">
-                        <p>Me chamo Ruan Pablo Massini da costa, um Desenvolvedor Web</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="grid content mx-1 my-1 pl-3 pb-3 pr-3 pt-0">
-            <div class="row p-0">
-                <div class="col-auto p-2">
-                    <h1 class="titulo-principal">
-                        <span class="green">P</span>rojetos 
-                    </h1>
-                </div>
-            </div>
-            <div>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
 
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .title {
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .time-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .event-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .event-time {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-location {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        .finished-message {
+            display: none;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            animation: celebration 1s infinite alternate;
+        }
+
+        @keyframes celebration {
+            0% { transform: scale(1) rotate(-1deg); }
+            100% { transform: scale(1.1) rotate(1deg); }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .time-unit {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .time-number {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">🏐 VÔLEI</h1>
+        <p class="subtitle">Contagem regressiva para o jogo</p>
+        
+        <div class="countdown" id="countdown">
+            <div class="time-unit">
+                <span class="time-number" id="days">00</span>
+                <span class="time-label">Dias</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="hours">00</span>
+                <span class="time-label">Horas</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="minutes">00</span>
+                <span class="time-label">Minutos</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="seconds">00</span>
+                <span class="time-label">Segundos</span>
             </div>
         </div>
-        <div class="grid content mx-1 my-1 pl-3 pb-3 pr-3 pt-0">
-            <div class="row p-0">
-                <div class="col-auto p-2">
-                    <h1 class="titulo-principal">
-                        <span class="green">E</span>xperiência 
-                        <span class="green">P</span>rofissional
-                    </h1>
+        
+        <div class="finished-message" id="finishedMessage">
+            🎉 É HORA DO JOGO! 🏐
+        </div>
+        
+        <div class="event-info">
+            <div class="event-time">Próximo jogo às 19:00</div>
+            <div class="event-location">Horário local</div>
+            <div class="venue-info" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <div style="color: white; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px;">📍 Arena BYD</div>
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.3937888746327!2d-63.897949399999995!3d-8.748968399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92325ddfac3fab09%3A0xd09d3ee3982d6588!2sArena%20BYD!5e0!3m2!1spt-BR!2sbr!4v1758986604516!5m2!1spt-BR!2sbr"
+                        width="100%" 
+                        height="200" 
+                        style="border:0; border-radius: 8px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <!-- <div class="pulse"></div> -->
-                        <h2>Brasil Digital Telecom</h2>
-                        <p>
-                            <b>Período:</b> 07/2024 - Atualmente<br>
-                            <b>Cargo:</b> Assistente de Programação<br>
-                            <b>Descrição:</b> Desenvolvimento e manutenção de aplicações web (Sistema ERP e API REST).
-                        </p>
-                    </div>
-                </div>
+                <a href="https://maps.app.goo.gl/9JgzGBdaGnTDtnwz7" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">
+                    🗺️ Abrir no Google Maps
+                </a>
             </div>
         </div>
-    </body>
+    </div>
+
+    <script>
+        // Função para criar animações de fundo
+        function createBackgroundAnimations() {
+            const container = document.getElementById('backgroundAnimation');
+            
+            for (let i = 0; i < 8; i++) {
+                const volleyball = document.createElement('div');
+                volleyball.className = 'volleyball';
+                volleyball.style.left = Math.random() * 100 + '%';
+                volleyball.style.animationDelay = Math.random() * 15 + 's';
+                volleyball.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(volleyball);
+            }
+        }
+
+        // Função principal da contagem regressiva
+        function updateCountdown() {
+            const now = new Date();
+            
+            // Para teste: vamos definir um horário específico (por exemplo, 30 minutos a partir de agora)
+            const gameTime = new Date(now.getTime() + (30 * 60 * 1000)); // 30 minutos no futuro
+            
+            // OU se você quiser para hoje às 19h, descomente a linha abaixo:
+            // const gameTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
+            
+            const difference = gameTime - now;
+            
+            if (difference <= 0) {
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('finishedMessage').style.display = 'block';
+                return;
+            }
+            
+            // Calcular tempo restante
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            // Atualizar display
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            
+            // Debug
+            console.log('Contagem funcionando:', {
+                agora: now.toLocaleTimeString(),
+                jogo: gameTime.toLocaleTimeString(),
+                diferenca: difference,
+                dias: days,
+                horas: hours,
+                minutos: minutes,
+                segundos: seconds
+            });
+        }
+
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', function() {
+            createBackgroundAnimations();
+            updateCountdown();
+            
+            // Atualiza a contagem a cada segundo
+            setInterval(updateCountdown, 1000);
+        });
+    </script>
+</body>
 </html>
