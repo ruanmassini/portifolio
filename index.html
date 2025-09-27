@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contagem Regressiva - Vôlei</title>
+    <title>Contagem Regressiva - Vôlei na BYD</title>
     <style>
         * {
             margin: 0;
@@ -13,24 +13,72 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .volleyball {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+
+        .volleyball::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+        }
+
+        .volleyball::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+            }
         }
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.08);
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 90%;
         }
@@ -153,8 +201,9 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
-        <h1 class="title">🏐 VÔLEI</h1>
+        <h1 class="title">🏐 VÔLEI na Arena BYD</h1>
         <p class="subtitle">Contagem regressiva para o jogo</p>
         
         <div class="countdown" id="countdown">
@@ -181,8 +230,7 @@
         </div>
         
         <div class="event-info">
-            <div class="event-time">Próximo jogo às 19:00</div>
-            <div class="event-location">Horário local</div>
+            <div class="event-time">Hoje às 19:00</div>
             <div class="venue-info" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
                 <div style="color: white; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px;">📍 Arena BYD</div>
                 <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
@@ -220,49 +268,51 @@
 
         // Função principal da contagem regressiva
         function updateCountdown() {
+            // Horário atual no Brasil (considerando fuso horário)
             const now = new Date();
             
-            // Para teste: vamos definir um horário específico (por exemplo, 30 minutos a partir de agora)
-            const gameTime = new Date(now.getTime() + (30 * 60 * 1000)); // 30 minutos no futuro
+            // Data e hora do jogo: hoje às 19:00 no horário de Manaus (AMT - UTC-4)
+            const gameDate = new Date();
             
-            // OU se você quiser para hoje às 19h, descomente a linha abaixo:
-            // const gameTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 0, 0);
+            // Configurar para hoje às 19:00 (horário local do usuário)
+            gameDate.setHours(19, 0, 0, 0);
             
-            const difference = gameTime - now;
+            // Ajustar para o fuso horário de Manaus (AMT = UTC-4)
+            // Se o usuário estiver em um fuso diferente, ajustamos
+            const userTimezoneOffset = now.getTimezoneOffset(); // em minutos
+            const manausTimezoneOffset = 4 * 60; // AMT é UTC-4, então +4 horas em minutos
+            const timezoneAdjustment = (userTimezoneOffset - manausTimezoneOffset) * 60 * 1000; // em ms
             
-            if (difference <= 0) {
+            const targetTime = new Date(gameDate.getTime() + timezoneAdjustment);
+            
+            // Se o jogo já passou, mostrar mensagem
+            if (now >= targetTime) {
                 document.getElementById('countdown').style.display = 'none';
                 document.getElementById('finishedMessage').style.display = 'block';
                 return;
             }
             
-            // Calcular tempo restante
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            // Calcular diferença de tempo
+            const timeDifference = targetTime - now;
+            
+            // Calcular unidades de tempo
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
             
             // Atualizar display
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
             
-            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-            
-            // Debug
-            console.log('Contagem funcionando:', {
-                agora: now.toLocaleTimeString(),
-                jogo: gameTime.toLocaleTimeString(),
-                diferenca: difference,
-                dias: days,
-                horas: hours,
-                minutos: minutes,
-                segundos: seconds
-            });
+            // Efeito visual quando restam menos de 1 minuto
+            if (timeDifference < 60000) { // menos de 1 minuto
+                document.querySelectorAll('.time-unit').forEach(unit => {
+                    unit.style.animation = 'pulse 0.5s infinite';
+                });
+            }
         }
 
         // Inicializa a página
