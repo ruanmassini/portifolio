@@ -252,20 +252,6 @@
     </div>
 
     <script>
-        // Função para criar animações de fundo
-        function createBackgroundAnimations() {
-            const container = document.getElementById('backgroundAnimation');
-            
-            for (let i = 0; i < 8; i++) {
-                const volleyball = document.createElement('div');
-                volleyball.className = 'volleyball';
-                volleyball.style.left = Math.random() * 100 + '%';
-                volleyball.style.animationDelay = Math.random() * 15 + 's';
-                volleyball.style.animationDuration = (15 + Math.random() * 10) + 's';
-                container.appendChild(volleyball);
-            }
-        }
-
         // Função principal da contagem regressiva
         function updateCountdown() {
             // Horário atual no Brasil (considerando fuso horário)
