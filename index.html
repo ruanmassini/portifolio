@@ -11,9 +11,43 @@
             box-sizing: border-box;
         }
 
+        :root {
+            /* Modo claro */
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --container-bg: rgba(255, 255, 255, 0.15);
+            --container-border: rgba(255, 255, 255, 0.2);
+            --text-primary: white;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --text-tertiary: rgba(255, 255, 255, 0.8);
+            --unit-bg: rgba(255, 255, 255, 0.2);
+            --unit-border: rgba(255, 255, 255, 0.3);
+            --event-info-bg: rgba(255, 255, 255, 0.1);
+            --map-bg: rgba(255, 255, 255, 0.1);
+            --border-separator: rgba(255, 255, 255, 0.2);
+            --volleyball-opacity: 0.1;
+            --volleyball-color: #fff;
+        }
+
+        [data-theme="dark"] {
+            /* Modo escuro */
+            --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            --container-bg: rgba(0, 0, 0, 0.4);
+            --container-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e8e8e8;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --text-tertiary: rgba(255, 255, 255, 0.7);
+            --unit-bg: rgba(0, 0, 0, 0.3);
+            --unit-border: rgba(255, 255, 255, 0.2);
+            --event-info-bg: rgba(0, 0, 0, 0.2);
+            --map-bg: rgba(0, 0, 0, 0.2);
+            --border-separator: rgba(255, 255, 255, 0.1);
+            --volleyball-opacity: 0.05;
+            --volleyball-color: #333;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--bg-gradient);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,16 +55,89 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--container-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--container-border);
+            border-radius: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--unit-border);
+        }
+
+        .theme-switch::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--text-primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .theme-switch::before {
+            transform: translateX(28px);
+            background: #ffd700;
+        }
+
+        .theme-icon {
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-icon.sun {
+            opacity: 1;
+        }
+
+        .theme-icon.moon {
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .theme-icon.sun {
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .theme-icon.moon {
+            opacity: 1;
         }
 
         .volleyball {
             position: absolute;
             width: 60px;
             height: 60px;
-            background: #fff;
+            background: var(--volleyball-color);
             border-radius: 50%;
-            opacity: 0.1;
+            opacity: var(--volleyball-opacity);
             animation: float 15s infinite linear;
+            transition: all 0.3s ease;
         }
 
         .volleyball::before {
@@ -73,23 +180,25 @@
         .container {
             text-align: center;
             z-index: 1;
-            background: rgba(255, 255, 255, 0.15);
+            background: var(--container-bg);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--container-border);
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
+            max-width: 1300px;
+            width: 96%;
+            transition: all 0.3s ease;
         }
 
         .title {
-            color: white;
+            color: var(--text-primary);
             font-size: 3rem;
             font-weight: bold;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             animation: pulse 2s infinite;
+            transition: color 0.3s ease;
         }
 
         @keyframes pulse {
@@ -99,9 +208,10 @@
         }
 
         .subtitle {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-secondary);
             font-size: 1.2rem;
             margin-bottom: 30px;
+            transition: color 0.3s ease;
         }
 
         .countdown {
@@ -113,13 +223,13 @@
         }
 
         .time-unit {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: var(--unit-bg);
+            border: 2px solid var(--unit-border);
             border-radius: 15px;
             padding: 20px;
             min-width: 100px;
             backdrop-filter: blur(5px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .time-unit:hover {
@@ -130,50 +240,90 @@
         .time-number {
             font-size: 2.5rem;
             font-weight: bold;
-            color: white;
+            color: var(--text-primary);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             display: block;
+            transition: color 0.3s ease;
         }
 
         .time-label {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-tertiary);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: 5px;
+            transition: color 0.3s ease;
         }
 
         .event-info {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--event-info-bg);
             border-radius: 10px;
             padding: 20px;
             margin-top: 20px;
+            transition: background 0.3s ease;
         }
 
         .event-time {
-            color: white;
+            color: var(--text-primary);
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
 
         .event-location {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--text-tertiary);
             font-size: 1.1rem;
+            transition: color 0.3s ease;
         }
 
         .finished-message {
             display: none;
-            color: white;
+            color: var(--text-primary);
             font-size: 2rem;
             font-weight: bold;
             text-align: center;
             animation: celebration 1s infinite alternate;
+            transition: color 0.3s ease;
         }
 
         @keyframes celebration {
             0% { transform: scale(1) rotate(-1deg); }
             100% { transform: scale(1.1) rotate(1deg); }
+        }
+
+        .venue-info {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-separator);
+            transition: border-color 0.3s ease;
+        }
+
+        .venue-title {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .map-container {
+            background: var(--map-bg);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .map-link {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .map-link:hover {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -197,11 +347,40 @@
             .container {
                 padding: 20px;
             }
+
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+
+            .theme-switch {
+                width: 50px;
+                height: 25px;
+            }
+
+            .theme-switch::before {
+                width: 19px;
+                height: 19px;
+                top: 2px;
+                left: 2px;
+            }
+
+            [data-theme="dark"] .theme-switch::before {
+                transform: translateX(23px);
+            }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     
+    <!-- Switch do Modo Escuro -->
+    <div class="theme-toggle">
+        <span class="theme-icon sun">☀️</span>
+        <div class="theme-switch" onclick="toggleTheme()"></div>
+        <span class="theme-icon moon">🌙</span>
+    </div>
+
     <div class="container">
         <h1 class="title">🏐 VÔLEI na Arena BYD</h1>
         <p class="subtitle">Contagem regressiva para o jogo</p>
@@ -231,20 +410,20 @@
         
         <div class="event-info">
             <div class="event-time">Hoje às 19:00</div>
-            <div class="venue-info" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
-                <div style="color: white; font-size: 1.3rem; font-weight: bold; margin-bottom: 15px;">📍 Arena BYD</div>
-                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+            <div class="venue-info">
+                <div class="venue-title">📍 Arena BYD</div>
+                <div class="map-container">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.3937888746327!2d-63.897949399999995!3d-8.748968399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92325ddfac3fab09%3A0xd09d3ee3982d6588!2sArena%20BYD!5e0!3m2!1spt-BR!2sbr!4v1758986604516!5m2!1spt-BR!2sbr"
                         width="100%" 
-                        height="200" 
+                        height="400" 
                         style="border:0; border-radius: 8px;" 
                         allowfullscreen="" 
                         loading="lazy" 
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-                <a href="https://maps.app.goo.gl/9JgzGBdaGnTDtnwz7" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.8)'">
+                <a href="https://maps.app.goo.gl/9JgzGBdaGnTDtnwz7" target="_blank" class="map-link">
                     🗺️ Abrir no Google Maps
                 </a>
             </div>
@@ -252,6 +431,36 @@
     </div>
 
     <script>
+        // Função para alternar entre modo claro e escuro
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            
+            // Salvar preferência no localStorage
+            try {
+                localStorage.setItem('volleyball-theme', newTheme);
+            } catch (e) {
+                // Fallback se localStorage não estiver disponível
+                console.log('Theme preference not saved');
+            }
+        }
+
+        // Carregar tema salvo ao inicializar
+        function loadSavedTheme() {
+            try {
+                const savedTheme = localStorage.getItem('volleyball-theme');
+                if (savedTheme) {
+                    document.body.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) {
+                // Se não conseguir carregar, usar tema padrão
+                console.log('Could not load saved theme');
+            }
+        }
+
         // Função principal da contagem regressiva
         function updateCountdown() {
             // Horário atual no Brasil (considerando fuso horário)
@@ -303,6 +512,7 @@
 
         // Inicializa a página
         document.addEventListener('DOMContentLoaded', function() {
+            loadSavedTheme();
             updateCountdown();
             
             // Atualiza a contagem a cada segundo
